@@ -20,6 +20,10 @@ export default function Home() {
             <h1>Recetas</h1>
             {/*Search Bar*/}
             {/*Recipe Card*/}
+            {/*Recipe Card*/}
+            {/*Recipe Card*/}
+            {/*Recipe Card*/}
+
             <select>
                 <option value="gluten free">Libre de Gluten</option>
                 <option value="ketogenic">Cetogenica</option>
