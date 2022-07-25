@@ -2,53 +2,50 @@ const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const axios = require ('axios');
-const Recipe = require('../models/Recipe');
-const Diet = require('../models/Diet')
+const {Recipe} = require('../db');
+const {Diet} = require('../db')
 const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 const getApiRecipes = async () => {
-    const apiUrl = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=b9efb5473ccb401a9241802b68fabe07&addRecipeInformation=true')
-    const apiData = await apiUrl.data.map(element => {
+    const apiUrl = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=b9efb5473ccb401a9241802b68fabe07&number=100&addRecipeInformation=true')
+    
+    const apiData = await apiUrl.data.results.map(recipe => {
         return {
-            id: element.id,
-            name: element.title,
-            image: element.image,
-            diets: element.diets.map(element => element),
-            dishType: element.dishType.map(element => element),
-            summary: element.summary,
-            healthScore: element.healthScore,
-            instructions: element.instructions
+            id: recipe.id,
+            name: recipe.title,
+            image: recipe.image,
+            diets: recipe.diets.map(recipe => recipe[0].toUpperCase() + recipe.slice(1) + ' - '),
+            dishType: recipe.dishTypes.map(recipe => recipe),
+            summary: recipe.summary,
+            healthScore: recipe.healthScore,
+             instructions: recipe.analyzedInstructions.steps
         }
     })
+    // console.log(apiData)
     return apiData;
+    
 }
 
 const getDbRecipes = async () => {
-    return await Recipe.findAll({
-        include:{
-            model: Diet,
-            atributes: ['name'],
-            through: {
-                atributes: [],
-            }
-        }
-    })
+    return await Recipe.findAll()
 }
 
 const getAllRecipes = async () => {
     const apiData = await getApiRecipes();
     const dbData = await getDbRecipes();
     const allRecipes = apiData.concat(dbData)
+    // console.log(allRecipes)
     return allRecipes;
 }
 
 // Vamos a hacer el GET y POST, en el tp lo hacemos separado en otro archivo
 
-router.get('/recipes', (req, res) => {
+router.get('/recipes', async (req, res) => {
     const {name} = req.query;
-    let recipes = getAllRecipes();
+    let recipes = await getAllRecipes();
+    console.log(recipes)
     if(name) {
         let recipeName = recipes.filter(element => element.title.toLowerCase().includes(name.toLowerCase()))
         recipeName ? res.status(200).send(recipeName) : res.status(404).send('No existe una receta con ese nombre')
