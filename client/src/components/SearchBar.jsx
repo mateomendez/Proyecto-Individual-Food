@@ -15,6 +15,7 @@ export function SearchBar() {
     function handleSubmit(e) {
         e.preventDefault()
         dispatch(searchRecipes(name))
+        setName('')
     }
 
     return (

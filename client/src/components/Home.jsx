@@ -36,6 +36,7 @@ export function Home() {
         }
         if(selectOrder.value === 'Random') {
             order.disabled = true
+            order.value = 'Random'
         }
     }
 
@@ -60,15 +61,15 @@ export function Home() {
     return (
         <div>
             <div>
-            <Link to='/character'>
-                <button>Crear una receta</button>
+            <Link to='/createRecipe'>
+                <button>Create a Recipe</button>
             </Link>
-            <h1>Recetas</h1>
+            <h1>Recipes</h1>
             <SearchBar /> 
             </div>
             <div>
             <select onChange={e => handleFilterDiet(e)}>
-                <option value="all">Todas</option>
+                <option value="all">All</option>
                 <option value="Gluten Free">Gluten Free</option>
                 <option value="Ketogenic">Ketogenic</option>
                 <option value="Vegetarian">Vegetarian</option>

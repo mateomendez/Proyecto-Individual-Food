@@ -30,6 +30,23 @@ export function searchRecipes(payload) {
     }
 }
 
+export function getDiets() {
+    return async function (dispatch) {
+        let json = await axios.get("http://localhost:3001/diets")
+        return dispatch({
+            type:"GET_DIETS",
+            payload: json.data
+        })
+    }
+}
+
+export function postRecipe(payload) {
+    return async function (dispatch) {
+        let json = await axios.post('http://localhost:3001/recipes', payload);
+        return json;
+    }
+}
+
 export function filterRecipesByDiet(payload){
     return{
         type:"FILTER_BY_DIET",

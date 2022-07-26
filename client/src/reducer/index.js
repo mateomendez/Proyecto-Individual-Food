@@ -2,6 +2,7 @@
 const initialState = {
     recipes: [],
     allRecipes: [],
+    diets: [],
     sort: "Random"
 }
 
@@ -17,6 +18,15 @@ export default function rootReducer(state = initialState, {type, payload}){
             return {
                 ...state,
                 recipes: payload
+            }
+        case 'GET_DIETS':
+            return {
+                ...state,
+                diets: payload
+            }
+        case 'POST_RECIPE':
+            return {
+                ...state,
             }
         case 'FILTER_BY_DIET':
             const allRecipes = state.recipes;
