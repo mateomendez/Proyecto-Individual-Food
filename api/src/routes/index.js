@@ -9,33 +9,34 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 const getApiRecipes = async () => {
-    const apiUrl = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=b9efb5473ccb401a9241802b68fabe07&number=100&addRecipeInformation=true')
-    
-    const apiData = await apiUrl.data.results.map(recipe => {
+        const apiUrl = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=b9efb5473ccb401a9241802b68fabe07&number=100&addRecipeInformation=true')
+        const apiData = await apiUrl.data.results.map(recipe => {
         return {
             id: recipe.id,
             name: recipe.title,
             image: recipe.image,
-            diets: recipe.diets.map(recipe => recipe[0].toUpperCase() + recipe.slice(1) + ' - '),
+            diets: recipe.diets.map(recipe => recipe[0].toUpperCase() + recipe.slice(1)),
             dishType: recipe.dishTypes.map(recipe => recipe),
             summary: recipe.summary,
             healthScore: recipe.healthScore,
-             instructions: recipe.analyzedInstructions.steps
+            // instructions: recipe.analyzedInstructions.steps
         }
     })
     // console.log(apiData)
     return apiData;
+
     
 }
 
 const getDbRecipes = async () => {
     return await Recipe.findAll()
+    
 }
 
 const getAllRecipes = async () => {
     const apiData = await getApiRecipes();
     const dbData = await getDbRecipes();
-    const allRecipes = apiData.concat(dbData)
+    const allRecipes = apiData.concat(dbData) 
     // console.log(allRecipes)
     return allRecipes;
 }
@@ -45,7 +46,6 @@ const getAllRecipes = async () => {
 router.get('/recipes', async (req, res) => {
     const {name} = req.query;
     let recipes = await getAllRecipes();
-    console.log(recipes)
     if(name) {
         let recipeName = recipes.filter(element => element.title.toLowerCase().includes(name.toLowerCase()))
         recipeName ? res.status(200).send(recipeName) : res.status(404).send('No existe una receta con ese nombre')
@@ -53,11 +53,22 @@ router.get('/recipes', async (req, res) => {
     else {
         res.status(200).send(recipes)
     }
+    // if(name) {
+    //     let recipeName = recipes.filter(element => element.title.toLowerCase().includes(name.toLowerCase()));
+    //     try {
+    //         res.status(200).send(recipeName)
+    //     } catch (error) {
+    //         res.status(404).send(error.message)
+    //     }
+    // }
+    // else {
+    //     res.status(200).send(recipes)
+    // }
 })
 
-router.get('/recipes/:id', (req, res) => {
+router.get('/recipes/:id', async (req, res) => {
     const {id} = req.params;
-    const allRecipes = getAllRecipes();
+    const allRecipes = await getAllRecipes();
     if(id) {
         let recipe = allRecipes.filter(element => element.id === id)
         recipe ? res.status(200).send(recipe) : res.status(404).send(`No se encontró la receta con el id ${id}`)

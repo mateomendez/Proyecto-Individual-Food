@@ -1,12 +1,12 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 
-export default function LandingPage() {
+export function LandingPage() {
     return (
         <div>
-            <h1>Recetas</h1>
+            <h1>Recipes App</h1>
             <Link to='/home'>
-                <button>Continuar...</button>
+                <button>Start...</button>
             </Link>
         </div>
     )
