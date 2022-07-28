@@ -23,14 +23,14 @@ export function Home() {
         setCurrentPage(pageNumber)
     }
     
-    // useEffect(()=>{
-    //     dispatch(getRecipes())
-    // },[dispatch])
+    useEffect(()=>{
+    dispatch(getRecipes())
+    },[dispatch])
 
     function enableSelect(){
         let selectOrder = document.getElementById('selectOrder')
         let order = document.getElementById('order')
-        console.log(selectOrder.value)
+        // console.log(selectOrder.value)
         if(selectOrder.value !== "Random") {
             order.disabled = false
         }
@@ -41,20 +41,19 @@ export function Home() {
     }
 
     function handleFilterDiet(e){
-        e.preventDefault()
         dispatch(filterRecipesByDiet(e.target.value))
     }
 
     function setOrder(e){
-        e.preventDefault()
         enableSelect()
         dispatch(setOrderRecipes(e.target.value))
+        // dispatch(filterRecipesByOrder(e.target.value))
     }
 
     function handleFilterOrder(e){
         e.preventDefault()
-        dispatch(filterRecipesByOrder(e.target.value))
         setCurrentPage(1);
+        dispatch(filterRecipesByOrder(e.target.value))
         setOrden(`Ordenado ${e.target.value}`)
     }
 
@@ -70,16 +69,16 @@ export function Home() {
             <div>
             <select onChange={e => handleFilterDiet(e)}>
                 <option value="all">All</option>
-                <option value="Gluten Free">Gluten Free</option>
+                <option value="Gluten free">Gluten Free</option>
                 <option value="Ketogenic">Ketogenic</option>
                 <option value="Vegetarian">Vegetarian</option>
-                <option value="Lacto-Vegetarian">Lacto-Vegetarian</option>
-                <option value="Ovo-Vegetarian">Ovo-Vegetarian</option>
+                <option value="Lacto ovo vegetarian">Lacto-Ovo-Vegetarian</option>
+                <option value="Dairy free">Ovo-Vegetarian</option>
                 <option value="Vegan">Vegan</option>
                 <option value="Pescetarian">Pescetarian</option>
                 <option value="Paleolithic">Paleolithic</option>
                 <option value="Primal">Primal</option>
-                <option value="Foadmap Friendly">Foadmap Friendly</option>
+                <option value="Fodmap friendly">Foadmap Friendly</option>
                 <option value="Whole 30">Whole 30</option>
             </select>
             </div>
@@ -89,7 +88,7 @@ export function Home() {
                 <option value="Alphabetic">Alphabetic Order</option>
                 <option value="HealthScore">Health Score Order</option>
             </select>
-            <select id="order" onChange={e => handleFilterOrder(e)} disabled>
+            <select id="order" onChange={e => handleFilterOrder(e)} disabled={true}>
                 <option value="Random">Random</option>
                 <option value="Asc">Ascending</option>
                 <option value="Desc">Descending</option>

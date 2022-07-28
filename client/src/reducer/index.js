@@ -2,8 +2,10 @@
 const initialState = {
     recipes: [],
     allRecipes: [],
+    recipeFilterByDiet: [],
     diets: [],
-    sort: "Random"
+    diet: "",
+    sort: "" 
 }
 
 export default function rootReducer(state = initialState, {type, payload}){
@@ -29,64 +31,63 @@ export default function rootReducer(state = initialState, {type, payload}){
                 ...state,
             }
         case 'FILTER_BY_DIET':
-            const allRecipes = state.recipes;
-            let dietFilter = [];
-            console.log(payload);
-            console.log(allRecipes)
-            if (payload === 'all') {
-                dietFilter = allRecipes
-            }  else {
-                dietFilter = allRecipes.filter(recipe => recipe.diets.includes(payload))
-            } 
-            console.log(dietFilter)
-            console.log(dietFilter.length)
+            // let allRecipes = state.recipes;
+            //  console.log(payload);
+            // console.log(allRecipes)
+            // console.log(state.recipes[0].diets)
+            let dietFilter = payload === 'all' ? state.allRecipes : state.allRecipes.filter(recipe => recipe.diets.includes(payload))
+            // console.log(dietFilter)
+            // console.log(dietFilter.length)
             return {
                 ...state,
-                recipes: dietFilter
+                diet: payload,
+                recipes: dietFilter,
+                recipeFilterByDiet: dietFilter
             }
         case 'SET_ORDER':
+            // console.log(payload)
             return {
                 ...state,
                 sort: payload
             }
         case 'FILTER_BY_ORDER':
-            var orderFilter = []
+            const unsortedRecipes = state.recipes
+            let orderFilter = []
+            console.log(state.sort)
             if(state.sort === 'Alphabetic') {
+                console.log(state.sort)
                 if(payload === 'Asc') {
                 orderFilter = state.recipes.sort(function(a, b){
                     if(a.name > b.name) return 1;
                     if(b.name > a.name) return -1;
                     return 0
-                })
+                })}
                 if(payload === 'Desc') {
                 orderFilter = state.recipes.sort(function(a, b){
                     if(a.name > b.name) return -1;
                     if(b.name > a.name) return 1;
                     return 0
-                })
-                }
-                }
-                }
-                
+                })}
+                } 
             if (state.sort === 'HealthScore') {
+                
+                console.log(state.sort)
+                console.log(payload)
                 if(payload === 'Asc') {
                     orderFilter = state.recipes.sort(function(a, b){
-                        if(a.healthScore > b.healthScore) return 1;
-                        if(b.healthScore > a.healthScore) return -1;
-                        return 0
-                    })
-                    if(payload === 'Desc') {
-                        orderFilter = state.recipes.sort(function(a, b){
-                        if(a.healthScore > b.healthScore) return -1;
-                        if(b.healthScore > a.healthScore) return 1;
-                        return 0
-                    })
-                }
+                        return a.healthScore - b.healthScore
+                    })}
+                if(payload === 'Desc') {
+                    orderFilter = state.recipes.sort(function(a, b){
+                        return b.healthScore - a.healthScore
+                })}
             }
-            }
-                    if(state.sort === 'Random') {
-                        orderFilter = state.recipes
-                    }
+             if(state.sort === 'Random') {
+                 if(state.diet !== 'all') orderFilter = state.recipeFilterByDiet;
+                 if(state.diet) orderFilter = state.allRecipes;
+             }
+
+
             return {
                 ...state,
                 recipes: orderFilter

@@ -9,7 +9,7 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 const getApiRecipes = async () => {
-        const apiUrl = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=b9efb5473ccb401a9241802b68fabe07&number=100&addRecipeInformation=true')
+        const apiUrl = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=b9efb5473ccb401a9241802b68fabe07&number=4&addRecipeInformation=true')
         const apiData = await apiUrl.data.results.map(recipe => {
         return {
             id: recipe.id,
@@ -47,7 +47,7 @@ router.get('/recipes', async (req, res) => {
     const {name} = req.query;
     let recipes = await getAllRecipes();
     if(name) {
-        let recipeName = recipes.filter(element => element.title.toLowerCase().includes(name.toLowerCase()))
+        let recipeName = recipes.filter(element => element.name.toLowerCase().includes(name.toLowerCase()))
         recipeName ? res.status(200).send(recipeName) : res.status(404).send('No existe una receta con ese nombre')
     }
     else {
@@ -75,29 +75,27 @@ router.get('/recipes/:id', async (req, res) => {
     }
 })
 
-router.post('/recipes', (req,res) => {
-    const {name, summary, healthScore, instructions, diets, image} = req.body;
+router.post('/recipes', async (req,res) => {
+    const {name, summary, healthScore} = req.body;
 
-    let recipeCreated = Recipe.create({
+    let recipeCreated = await Recipe.create({
         name,
         summary,
         healthScore,
-        instructions,
-        image
     })
 
-    let dietDb = Diet.findAll({
-        where: {name:diets}
-    })
+    // let dietDb = Diet.findAll({
+    //     where: {name:diets}
+    // })
 
-    recipeCreated.addDiet(dietDb)
-    res.send('Receta creada con éxito')
+    // recipeCreated.addDiet(dietDb)
+    // res.send('Receta creada con éxito')
 }) 
 
-router.get('/diets', (req, res) => {
+router.get('/diets', async (req, res) => {
     const diets = [];
-    const dietApi = axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=b9efb5473ccb401a9241802b68fabe07&addRecipeInformation=true')
-    const dietsArrays = dietApi.data.map(element => element.diets)
+    const dietApi = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=b9efb5473ccb401a9241802b68fabe07&addRecipeInformation=true')
+    const dietsArrays = dietApi.data.results.map(element => element.diets)
     for (let i = 0; i<dietsArrays.length;i++){
         for(let j=0; j<dietsArrays[i].length;j++){
             diets.push(dietsArrays[i][j])
