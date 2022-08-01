@@ -4,7 +4,8 @@ const initialState = {
     allRecipes: [],
     recipeFilterByDiet: [],
     diets: [],
-    diet: "",
+    detail: [],
+    diet: "all",
     sort: "" 
 }
 
@@ -29,6 +30,11 @@ export default function rootReducer(state = initialState, {type, payload}){
         case 'POST_RECIPE':
             return {
                 ...state,
+            }
+        case 'DETAIL_RECIPE': 
+            return {
+                ...state,
+                detail: payload
             }
         case 'FILTER_BY_DIET':
             // let allRecipes = state.recipes;
@@ -68,6 +74,11 @@ export default function rootReducer(state = initialState, {type, payload}){
                     if(b.name > a.name) return 1;
                     return 0
                 })}
+                if(payload === 'Random') {
+                    if(state.diet !== 'all') orderFilter = state.recipeFilterByDiet;
+                    if(state.diet === 'all') orderFilter = state.allRecipes;
+                    console.log(orderFilter)
+                }
                 } 
             if (state.sort === 'HealthScore') {
                 
@@ -81,13 +92,16 @@ export default function rootReducer(state = initialState, {type, payload}){
                     orderFilter = state.recipes.sort(function(a, b){
                         return b.healthScore - a.healthScore
                 })}
+                if(payload === 'Random') {
+                    if(state.diet !== 'all') orderFilter = state.recipeFilterByDiet;
+                    if(state.diet === 'all') orderFilter = state.allRecipes;
+                    console.log(orderFilter)
+                }
             }
-             if(state.sort === 'Random') {
-                 if(state.diet !== 'all') orderFilter = state.recipeFilterByDiet;
-                 if(state.diet) orderFilter = state.allRecipes;
-             }
-
-
+            
+            // if(state.sort === 'Random') {
+            //     orderFilter = unsortedRecipes
+            // }
             return {
                 ...state,
                 recipes: orderFilter

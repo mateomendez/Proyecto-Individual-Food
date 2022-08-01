@@ -67,3 +67,17 @@ export function filterRecipesByOrder(payload) {
         payload
     }
 }
+
+export function detailRecipe(payload){
+    return async function (dispacth) {
+        try{
+            let json = await axios.get('http://localhost:3001/recipes/' + payload)
+            return dispacth ({
+                type : "DETAIL_RECIPE",
+                payload: json.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}

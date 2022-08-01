@@ -19,7 +19,7 @@ const getApiRecipes = async () => {
             dishType: recipe.dishTypes.map(recipe => recipe),
             summary: recipe.summary,
             healthScore: recipe.healthScore,
-            // instructions: recipe.analyzedInstructions.steps
+            steps: recipe.analyzedInstructions.steps
         }
     })
     // console.log(apiData)
@@ -52,13 +52,14 @@ const getAllDiets = async () => {
             diets.push(dietsArrays[i][j])
         }
     }
+    
     diets.forEach(element => {
         Diet.findOrCreate({
             where: {name: element}
         })
     })
     const allDiets = await Diet.findAll();
-    console.log(allDiets)
+    // console.log(allDiets)
     return allDiets
 }
 
@@ -91,12 +92,13 @@ router.get('/recipes/:id', async (req, res) => {
     const {id} = req.params;
     const allRecipes = await getAllRecipes();
     if(id) {
-        let recipe = allRecipes.filter(element => element.id === id)
+        let recipe = await allRecipes.filter(element => element.id === id)
         recipe ? res.status(200).send(recipe) : res.status(404).send(`No se encontró la receta con el id ${id}`)
     }
 })
 
-router.post('/recipe', async (req,res) => {
+router.post('/recipes', async (req,res) => {
+    console.log(req.body)
     let {name, summary, healthScore, image, diet, steps} = req.body;
 
     let recipeCreated = await Recipe.create({
@@ -104,20 +106,26 @@ router.post('/recipe', async (req,res) => {
         summary,
         healthScore,
         steps,
-        image
+        image,
+        createdInDb
     })
 
     //  let dietDb = await Diet.findAll({
     //      where: { name : diet }
     //  })
 
-     // recipeCreated.addDiet(dietDb)
-     res.send('Receta creada con éxito')
+    //  recipeCreated.addDiet(dietDb)
+    //  res.send('Receta creada con éxito')
 }) 
 
 router.get('/diets', async (req, res) => {
     const allDiets = await getAllDiets();
-    res.status(200).send(allDiets)
+    try {
+        res.status(200).send(allDiets)
+    } catch (error) {
+        console.log(error)
+        res.status(404).send(error)
+    }
 })
 
 module.exports = router;

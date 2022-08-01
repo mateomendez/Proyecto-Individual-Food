@@ -3,6 +3,29 @@ import {Link, useHistory} from 'react-router-dom';
 import {postRecipe, getDiets} from '../actions/index';
 import {useDispatch, useSelector} from 'react-redux'
 
+function validate(input){
+    let errors = {};
+    if(!input.name) {
+        errors.name = "Name is required"
+    }
+    else if(!input.summary) {
+        errors.summary = "Summary is required"
+    }
+    else if(!input.healthScore) {
+        errors.healthScore = "Health Score is required"
+    }
+    else if(input.healthScore > 100 || input.healthScore < 0) {
+        errors.healthScore = "Invalid Health Score"
+    }
+    else if(!input.steps) {
+        errors.steps = "At least 1 step is required"
+    }
+    else if(!input.diets) {
+        errors.steps = "At least 1 diet is required"
+    }   
+    return errors
+}
+
 export function RecipeCreate() {
     
     const dispatch = useDispatch();
@@ -13,9 +36,11 @@ export function RecipeCreate() {
         name: '',
         summary: '',
         healthScore: 0,
-        steps: [],
-        diet: []
+        steps: '',
+        diets: []
     })
+
+    const [errors, setErrors] = useState({})
 
     useEffect(() => {
         dispatch(getDiets())
@@ -26,12 +51,17 @@ export function RecipeCreate() {
             ...input,
             [e.target.name] : e.target.value
         })
+        setErrors(validate({
+            ...input,
+            [e.target.name] : e.target.value
+        }))
     }
 
     function handleSelect(e) {
+        if(!input.diets.includes(e.target.value))
         setInput({
             ...input,
-            diet : [...input.diet, e.target.value]
+            diets : [...input.diets, e.target.value]
         })
     }
 
@@ -43,10 +73,17 @@ export function RecipeCreate() {
             name: '',
             summary: '',
             healthScore: 0,
-            steps: [],
-            diet: []
+            steps: '',
+            diets: []
         })
         history.push('/home')
+    }
+
+    function handleDelete(deletedDiet) {
+        setInput({
+            ...input,
+            diets: input.diets.filter( diet => diet !== deletedDiet)
+        })
     }
 
     return (
@@ -60,7 +97,10 @@ export function RecipeCreate() {
                     type="text" 
                     value={input.name}
                     name="name"
-                    onChange={handleChange}/>
+                    onChange={(e)=>handleChange(e)}/>
+                    {errors.name && (
+                        <p>{errors.name}</p>
+                    )}
                 </div>
                 <div>
                     <label>Summary:</label>
@@ -68,7 +108,10 @@ export function RecipeCreate() {
                     type="text" 
                     value={input.summary}
                     name="summary"
-                    onChange={handleChange}/>
+                    onChange={(e)=>handleChange(e)}/>
+                    {errors.summary && (
+                        <p>{errors.summary}</p>
+                    )}
                 </div>
                 <div>
                     <label>Health Score:</label>
@@ -76,7 +119,10 @@ export function RecipeCreate() {
                     type="number" 
                     value={input.healthScore}
                     name="healthScore"
-                    onChange={handleChange}/>
+                    onChange={(e)=>handleChange(e)}/>
+                    {errors.healthScore && (
+                        <p>{errors.healthScore}</p>
+                    )}
                 </div>
                 <div>
                     <label>Steps:</label>
@@ -84,7 +130,10 @@ export function RecipeCreate() {
                     type="text" 
                     value={input.steps}
                     name="steps"
-                    onChange={handleChange}/>
+                    onChange={(e)=>handleChange(e)}/>
+                    {errors.steps && (
+                        <p>{errors.steps}</p>
+                    )}
                 </div>
                 <div>
                     <label>Image:</label>
@@ -92,19 +141,29 @@ export function RecipeCreate() {
                     type="text" 
                     value={input.image}
                     name="image"
-                    onChange={handleChange}/>
+                    onChange={(e)=>handleChange(e)}/>
+                    {errors.image && (
+                        <p>{errors.image}</p>
+                    )}
                 </div>
                 <select onChange={(e) => handleSelect(e)}>
                     {diets.map((diet) => (
                         <option value={diet.name}>{diet.name}</option>
                     ))}
                 </select>
-                <ul><li>{input.diet.map(diet => diet)}</li></ul>
-                <button type='submit'>Create Recipe</button>
-
-                
-
-
+                {errors.diets && (
+                        <p>{errors.diets}</p>
+                    )}
+                <ul>
+                {input.diets.map(diet => (
+                    <li>
+                        {diet} <button type='button' onClick={()=>handleDelete(diet)}>X</button>
+                    </li>
+                ))} 
+                </ul>
+                {Object.entries(errors).length === 0 ? 
+                (<button id='submitButton' type='submit'>Create Recipe</button>) :
+                (<button id='submitButton' type='submit' disabled>Create Recipe</button>)}
             </form>
         </div>
     )
