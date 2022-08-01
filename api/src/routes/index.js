@@ -41,6 +41,27 @@ const getAllRecipes = async () => {
     return allRecipes;
 }
 
+const getAllDiets = async () => {
+    const diets = [];
+    const dietApi = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=b9efb5473ccb401a9241802b68fabe07&number=4&addRecipeInformation=true')
+    // console.log(dietApi.data.results)
+    const dietsArrays = dietApi.data.results.map(element => element.diets)
+    // console.log(dietsArrays)
+    for (let i = 0; i<dietsArrays.length;i++){
+        for(let j=0; j<dietsArrays[i].length;j++){
+            diets.push(dietsArrays[i][j])
+        }
+    }
+    diets.forEach(element => {
+        Diet.findOrCreate({
+            where: {name: element}
+        })
+    })
+    const allDiets = await Diet.findAll();
+    console.log(allDiets)
+    return allDiets
+}
+
 // Vamos a hacer el GET y POST, en el tp lo hacemos separado en otro archivo
 
 router.get('/recipes', async (req, res) => {
@@ -75,39 +96,28 @@ router.get('/recipes/:id', async (req, res) => {
     }
 })
 
-router.post('/recipes', async (req,res) => {
-    const {name, summary, healthScore} = req.body;
+router.post('/recipe', async (req,res) => {
+    let {name, summary, healthScore, image, diet, steps} = req.body;
 
     let recipeCreated = await Recipe.create({
         name,
         summary,
         healthScore,
+        steps,
+        image
     })
 
-    // let dietDb = Diet.findAll({
-    //     where: {name:diets}
-    // })
+    //  let dietDb = await Diet.findAll({
+    //      where: { name : diet }
+    //  })
 
-    // recipeCreated.addDiet(dietDb)
-    // res.send('Receta creada con éxito')
+     // recipeCreated.addDiet(dietDb)
+     res.send('Receta creada con éxito')
 }) 
 
 router.get('/diets', async (req, res) => {
-    const diets = [];
-    const dietApi = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=b9efb5473ccb401a9241802b68fabe07&addRecipeInformation=true')
-    const dietsArrays = dietApi.data.results.map(element => element.diets)
-    for (let i = 0; i<dietsArrays.length;i++){
-        for(let j=0; j<dietsArrays[i].length;j++){
-            diets.push(dietsArrays[i][j])
-        }
-    }
-    diets.forEach(element => {
-        Diet.findOrCreate({
-            where: {name: element}
-        })
-    })
-    const allDiets = Diet.findAll();
-    res.send(allDiets)
+    const allDiets = await getAllDiets();
+    res.status(200).send(allDiets)
 })
 
 module.exports = router;

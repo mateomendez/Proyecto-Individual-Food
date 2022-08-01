@@ -22,9 +22,13 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    instructions:{
+    steps:{
       type: DataTypes.STRING,
       allowNull: true
+    },
+    image:{
+      type:DataTypes.STRING,
+      allowNull:true
     }
   });
 };
