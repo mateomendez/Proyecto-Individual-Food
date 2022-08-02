@@ -20,9 +20,12 @@ function validate(input){
     else if(!input.steps) {
         errors.steps = "At least 1 step is required"
     }
-    else if(!input.diets) {
-        errors.steps = "At least 1 diet is required"
-    }   
+    else if(!input.image) {
+        errors.image = "Image URL is required"
+    }
+    // else if(!input.recipeDiets.length) {
+    //     errors.recipeDiets = "At least 1 diet is required"
+    // }   
     return errors
 }
 
@@ -67,6 +70,7 @@ export function RecipeCreate() {
 
     function handleSubmit(e){
         e.preventDefault();
+        if(!input.name) return alert("Must complete all fields")
         dispatch(postRecipe(input))
         alert('Recipe Created')
         setInput({
@@ -151,9 +155,9 @@ export function RecipeCreate() {
                         <option value={diet.name}>{diet.name}</option>
                     ))}
                 </select>
-                {errors.diets && (
-                        <p>{errors.diets}</p>
-                    )}
+                {/* {errors.recipeDiets && (
+                        <p>{errors.recipeDiets}</p>
+                    )} */}
                 <ul>
                 {input.diets.map(diet => (
                     <li>

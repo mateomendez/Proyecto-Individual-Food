@@ -101,11 +101,18 @@ export function Home() {
             />
             <div>
             {
+                
                 currentRecipes?.map( recipe => {
+                    console.log(recipe)
+                    console.log(recipe.diets)
                     return (
                     <div>
                         <Link to={'/home/' + recipe.id}>
-                            <Card name={recipe.name} image={recipe.image} diets={recipe.diets}></Card>
+                            {recipe.createdInDb ? 
+                            <Card name={recipe.name} image={recipe.image} diets={recipe.diets} createdInDb={recipe.createdInDb}></Card> :
+                            <Card name={recipe.name} image={recipe.image} diets={recipe.diets} ></Card>
+                            }
+                            
                         </Link>
                     </div>
                     )

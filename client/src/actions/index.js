@@ -72,6 +72,7 @@ export function detailRecipe(payload){
     return async function (dispacth) {
         try{
             let json = await axios.get('http://localhost:3001/recipes/' + payload)
+            // console.log(json.data)
             return dispacth ({
                 type : "DETAIL_RECIPE",
                 payload: json.data

@@ -7,23 +7,27 @@ import {useEffect} from 'react';
 export function Detail(props){
 
     const dispatch = useDispatch();
-    const recipe = useSelector((state => state.detail))
+    const recipe = useSelector(state => state.detail)
+    console.log(recipe)
+    console.log(props.match.params.recipeId)
     
     useEffect(() => {
-        dispatch(detailRecipe(props.match.params.id))
+        dispatch(detailRecipe(props.match.params.recipeId))
     },[dispatch]);
+
+    
 
     return (
         <div>
             <Link to="/home"><button>Back</button></Link>
             {
-                recipe.length > 0 ? 
+                Object.entries(recipe).length > 0 ? 
                 <div>
-                    <h1>{recipe[0].name}</h1>
-                    <img src={recipe[0].image} alt="image not found" />
-                    <h2>{recipe[0].summary}</h2>
+                    <h1>{recipe.title}</h1>
+                    <img src={recipe.image} alt="image not found" />
+                    <h2>{recipe.summary}</h2>
                     {/* agregar un map con los steps cuando sea un array */}
-                    <p>{recipe[0].diets + ' '}</p> 
+                    <p>{recipe.diets + ' '}</p> 
                     {/* agregar una condicion en caso de que recibamos la informacion de otra manera en la base de datos */}
                 </div> : <p>Loading...</p>
             }

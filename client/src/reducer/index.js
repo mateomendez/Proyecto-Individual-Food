@@ -4,7 +4,7 @@ const initialState = {
     allRecipes: [],
     recipeFilterByDiet: [],
     diets: [],
-    detail: [],
+    detail: {},
     diet: "all",
     sort: "" 
 }
