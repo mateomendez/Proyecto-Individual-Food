@@ -1,15 +1,15 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {detailRecipe} from '../actions/index';
+import {detailRecipe} from '../../actions/index';
 import {useEffect} from 'react';
 
 export function Detail(props){
 
     const dispatch = useDispatch();
     const recipe = useSelector(state => state.detail)
-    console.log(recipe)
-    console.log(props.match.params.recipeId)
+    // console.log(recipe)
+    // console.log(props.match.params.recipeId)
     
     useEffect(() => {
         dispatch(detailRecipe(props.match.params.recipeId))

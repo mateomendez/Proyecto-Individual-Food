@@ -1,7 +1,7 @@
 import React from "react";
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import { searchRecipes } from "../actions";
+import { searchRecipes } from "../../actions";
 
 export function SearchBar() {
     const dispatch = useDispatch();

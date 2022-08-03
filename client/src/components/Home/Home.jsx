@@ -2,10 +2,10 @@ import React, { Fragment } from "react";
 import {Link} from 'react-router-dom'
 import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import { getRecipes, filterRecipesByDiet, setOrderRecipes , filterRecipesByOrder} from '../actions'
-import { Card } from "./Card";
-import { Paginado } from "./Paginado"
-import { SearchBar } from "./SearchBar";
+import { getRecipes, filterRecipesByDiet, setOrderRecipes , filterRecipesByOrder} from '../../actions'
+import { Card } from "../Card/Card";
+import { Paginado } from "../Paginado"
+import { SearchBar } from "../SearchBar";
 
 export function Home() {
 
@@ -104,12 +104,12 @@ export function Home() {
                 
                 currentRecipes?.map( recipe => {
                     console.log(recipe)
-                    console.log(recipe.diets)
+                    console.log(recipe.diets)   
                     return (
                     <div>
                         <Link to={'/home/' + recipe.id}>
                             {recipe.createdInDb ? 
-                            <Card name={recipe.name} image={recipe.image} diets={recipe.diets} createdInDb={recipe.createdInDb}></Card> :
+                            <Card name={recipe.name} image={recipe.image} diets={recipe.diets.map(diet => diet.name)} createdInDb={recipe.createdInDb}></Card> :
                             <Card name={recipe.name} image={recipe.image} diets={recipe.diets} ></Card>
                             }
                             

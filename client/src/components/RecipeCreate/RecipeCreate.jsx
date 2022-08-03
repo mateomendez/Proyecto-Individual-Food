@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import {postRecipe, getDiets} from '../actions/index';
+import {postRecipe, getDiets} from '../../actions/index';
 import {useDispatch, useSelector} from 'react-redux'
 
 function validate(input){
@@ -23,7 +23,7 @@ function validate(input){
     else if(!input.image) {
         errors.image = "Image URL is required"
     }
-    // else if(!input.recipeDiets.length) {
+    // else if(input.recipeDiets.length === 0) {
     //     errors.recipeDiets = "At least 1 diet is required"
     // }   
     return errors
@@ -61,11 +61,16 @@ export function RecipeCreate() {
     }
 
     function handleSelect(e) {
-        if(!input.diets.includes(e.target.value))
+        if(!input.diets.includes(e.target.value)) {
         setInput({
             ...input,
             diets : [...input.diets, e.target.value]
         })
+        setErrors(validate({
+            ...input,
+            [e.target.name] : e.target.value
+        }))
+    }
     }
 
     function handleSubmit(e){
