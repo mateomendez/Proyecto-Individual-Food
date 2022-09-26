@@ -3,7 +3,7 @@ import axios from 'axios';
 export function getRecipes(){
     return async function(dispatch){
         try {    
-            var json = await axios.get('http://localhost:3001/recipes')
+            var json = await axios.get('https://proyectoindividual-food-henry.herokuapp.com/recipes')
             return dispatch({
                 type: 'GET_RECIPES',
                 payload: json.data
@@ -17,7 +17,7 @@ export function getRecipes(){
 export function searchRecipes(payload) {
     return async function (dispatch) {
          try {
-            var json = await axios.get("http://localhost:3001/recipes?name=" + payload)
+            var json = await axios.get("https://proyectoindividual-food-henry.herokuapp.com/recipes?name=" + payload)
             return dispatch ({
                 type: 'SEARCH_RECIPES',
                 payload: json.data
@@ -31,7 +31,7 @@ export function searchRecipes(payload) {
 
 export function getDiets() {
     return async function (dispatch) {
-        let json = await axios.get("http://localhost:3001/diets")
+        let json = await axios.get("https://proyectoindividual-food-henry.herokuapp.com/diets")
         return dispatch({
             type:"GET_DIETS",
             payload: json.data
@@ -41,7 +41,7 @@ export function getDiets() {
 
 export function postRecipe(payload) {
     return async function (dispatch) {
-        var json = await axios.post('http://localhost:3001/recipes', payload);
+        var json = await axios.post('https://proyectoindividual-food-henry.herokuapp.com/recipes', payload);
         return dispatch({
             type:"POST_RECIPE",
             payload:json.data
@@ -66,7 +66,7 @@ export function setOrder(payload) {
 export function detailRecipe(payload){
     return async function (dispacth) {
         try{
-            let json = await axios.get('http://localhost:3001/recipes/' + payload)
+            let json = await axios.get('https://proyectoindividual-food-henry.herokuapp.com/recipes/' + payload)
             return dispacth ({
                 type : "DETAIL_RECIPE",
                 payload: json.data

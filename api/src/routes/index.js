@@ -89,7 +89,6 @@ router.get('/recipes/:id', async (req, res) => {
         else if(!recipe.createdInDb) {
             try {
                 recipe = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=35508bb831984b18b2c4b6fc18868a1e`)
-                console.log(recipe.data)
                 res.status(200).send(recipe.data) 
             }
             catch (e) {
