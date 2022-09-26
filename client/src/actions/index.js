@@ -3,13 +3,13 @@ import axios from 'axios';
 export function getRecipes(){
     return async function(dispatch){
         try {    
-        let json = await axios.get('http://localhost:3001/recipes')
+            var json = await axios.get('http://localhost:3001/recipes')
             return dispatch({
                 type: 'GET_RECIPES',
                 payload: json.data
             })
         } catch (error) {
-        console.log(error)
+        console.log("No esta funcionando")
         }
     }
 }
@@ -23,8 +23,7 @@ export function searchRecipes(payload) {
                 payload: json.data
             })
          } catch (error) {
-             console.log(error)
-             
+             alert("No existe una receta con ese nombre")
          }
         
     }
@@ -42,8 +41,11 @@ export function getDiets() {
 
 export function postRecipe(payload) {
     return async function (dispatch) {
-        let json = await axios.post('http://localhost:3001/recipes', payload);
-        return json;
+        var json = await axios.post('http://localhost:3001/recipes', payload);
+        return dispatch({
+            type:"POST_RECIPE",
+            payload:json.data
+        })
     }
 }
 
@@ -54,16 +56,9 @@ export function filterRecipesByDiet(payload){
     }
 }
 
-export function setOrderRecipes(payload) {
+export function setOrder(payload) {
     return {
         type:"SET_ORDER",
-        payload
-    }
-}
-
-export function filterRecipesByOrder(payload) {
-    return {
-        type: "FILTER_BY_ORDER",
         payload
     }
 }
@@ -72,7 +67,6 @@ export function detailRecipe(payload){
     return async function (dispacth) {
         try{
             let json = await axios.get('http://localhost:3001/recipes/' + payload)
-            // console.log(json.data)
             return dispacth ({
                 type : "DETAIL_RECIPE",
                 payload: json.data

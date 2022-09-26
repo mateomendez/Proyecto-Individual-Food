@@ -1,0 +1,44 @@
+.card{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+    background-color: white;
+    height: 220px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .7);
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.cardTitle{
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    font-size: 0.79rem;
+    font-weight: bold;
+    color: #007898;
+    margin-bottom: 1px;
+    margin-top: 0.5px;
+    background-color: white;
+    width: 260px;
+    height: 30px;
+    text-align: center;
+}
+
+.cardDiets{
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    font-size: 0.70rem;
+    color: #007898;
+    margin-top: 1px;
+}
+
+.cardImage{ 
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 170px;
+    width: 300px;
+    margin-bottom: 6px;
+}   

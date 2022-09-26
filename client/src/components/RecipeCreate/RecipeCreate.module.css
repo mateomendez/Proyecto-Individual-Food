@@ -1,0 +1,430 @@
+.mainContainer{
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+.createRightMenu{
+    background-color: #E1CDB5;
+    width: 65%;
+    height: 100%;
+}
+.imageContainer{
+    width: 35%;
+    height: 100%
+}
+.createImage{
+    width: 100%;
+    height: 100%;
+}
+
+.backButtonContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-end;
+    height: 8.1%;
+}
+
+.backButton{
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    color: #007898 !important;
+    font-size: 1.3rem;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    background-color: white;
+    margin-left: 40px;
+    padding: 10px 30px;
+    cursor: pointer;
+}
+
+.backButton:hover{
+  color: white;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, .7);
+  border: none;
+  }
+
+.titleContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 13%;
+}
+
+.createTitle{
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    font-size: 3.4rem;
+    color:#007898;
+    font-weight: lighter;
+    margin-left: 40px;
+}
+
+.formContainer{
+    height: 78.89%;
+}
+
+.form{
+    height: 100%;
+}
+
+.errorMessage{
+    color: red;
+    margin-top: 4px;
+    margin-bottom: 0px;
+    margin-left: 49px;
+}
+
+.inputsContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 75%;
+}
+
+.nameInputContainer{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: normal;
+}
+
+.nameLabel{
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    font-size: 1.36rem;
+    color: #007898;
+    margin-left: 47px;
+    padding-bottom: 5px;
+}
+
+.nameInput{
+    padding:10px;
+    border-width:0px; 
+    border-radius:10px; 
+    font-size: 1.20rem;
+    background-color:white; 
+    color: black;
+    height: 100%;
+    margin-left: 47px;
+}
+
+.nameInput::placeholder {
+    color: rgb(129, 129, 129);
+}
+
+.summaryInputContainer{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: normal;
+}
+
+.summaryLabel{
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    font-size: 1.36rem;
+    color: #007898;
+    margin-left: 47px;
+    padding-bottom: 5px;
+}
+
+.summaryInput{
+    padding:10px;
+    border-width:0px; 
+    border-radius:10px; 
+    font-size: 1.20rem;
+    background-color:white; 
+    color: black;
+    height: 100%;
+    margin-left: 47px;
+}
+
+.summaryInput::placeholder {
+    color: rgb(129, 129, 129);
+}
+
+.healthScoreInputContainer{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: normal;
+}
+
+.healthScoreLabel{
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    font-size: 1.36rem;
+    color: #007898;
+    margin-left: 47px;
+    padding-bottom: 5px;
+}
+
+.healthScoreInput{
+    padding:10px;
+    border-width:0px; 
+    border-radius:10px; 
+    font-size: 1.20rem;
+    background-color:white; 
+    color: black;
+    height: 100%;
+    margin-left: 47px;
+}
+
+.healthScoreInput::placeholder {
+    color: rgb(129, 129, 129);
+}
+
+.stepsInputContainer{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: normal;
+}
+
+.stepsLabel{
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    font-size: 1.36rem;
+    color: #007898;
+    margin-left: 47px;
+    padding-bottom: 5px;
+}
+
+.stepsInput{
+    padding:10px;
+    border-width:0px; 
+    border-radius:10px; 
+    font-size: 1.20rem;
+    background-color:white; 
+    color: black;
+    height: 100%;
+    margin-left: 47px;
+}
+
+.stepsInput::placeholder {
+    color: rgb(129, 129, 129);
+}
+
+.imageInputContainer{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: normal;
+}
+
+.imageLabel{
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    font-size: 1.36rem;
+    color: #007898;
+    margin-left: 47px;
+    padding-bottom: 5px;
+}
+
+.imageInput{
+    padding:10px;
+    border-width:0px; 
+    border-radius:10px; 
+    font-size: 1.20rem;
+    background-color:white; 
+    color: black;
+    height: 100%;
+    margin-left: 47px;
+}
+
+.imageInput::placeholder {
+    color: rgb(129, 129, 129);
+}
+
+.dietContainer{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: normal;
+    height: 30%;
+}
+
+.dietsLabel{
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    font-size: 1.36rem;
+    color: #007898;
+    margin-left: 47px;
+    padding-bottom: 5px;
+}
+
+.selectContainer{
+    position: relative;
+    display: inline-block;
+    margin-left: 47px;
+    width: 100%;
+    height: 28%;
+}
+.selectContainer select {
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    font-size: 1.20rem;
+    display: inline-block;
+    cursor: pointer;
+    background: white;
+    color: black;
+    border: 0;
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 35px;
+    height: 100%;
+    width: 21%;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none
+}
+
+.dietArrow{
+    position: absolute;
+    top: 35%;
+    right: 81.5%;
+    width: 0%;
+    height: 0%;
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.dietFilter select:hover ~ .dietArrow,
+.dietFilter select:focus ~ .dietArrow {
+    border-color: #ffffff;
+}
+
+.dietUlContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 60%;
+    margin-left: 47px;
+}
+
+.dietUl{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-left: 0px;
+}
+
+.dietLiContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+    border-radius: 30px;
+    background-color: rgb(237, 237, 237);
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .7);
+    width: 185px;
+    height: 70%;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+.diet{
+    list-style-type: none;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+    cursor:default;
+}
+
+.dietButton{
+    background-color: transparent;
+    border: transparent;
+    cursor: pointer;
+}
+
+.submitButton{
+    margin-top: 80px;
+    margin-left: 47px;
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    color: #007898 !important;
+    font-size: 1.3rem;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    background-color: white;
+    padding: 10px 30px;
+    cursor: pointer;
+}
+
+.submitButton:hover{
+  color: white;
+  background: E47724;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, .7);
+  border: none;
+}
+
+@media (max-width: 600px){
+    .createImage{
+        display: none;
+    }
+    .imageContainer{
+        display: none;
+    }
+    .createRightMenu{
+        width: 100%;
+    }
+    .backButtonContainer{
+        height: 6%;
+        margin-top: 10px;
+    }
+    .titleContainer{
+        height: 10%;
+    }
+    .createTitle{
+        font-size: 2.3rem;
+    }
+    .inputsContainer{
+        height: 95%;
+    }
+    .dietContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        height: 50%;
+    }
+    .selectContainer{
+        width: 100%;
+        height: 18%;
+    }
+    .selectContainer select {
+        width: 52%;
+    }
+    .dietArrow{
+        right: 55%;
+    }
+    .dietUlContainer{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        height: 70%;
+    }
+    .dietUI{
+        height: 20%;
+        margin-bottom: 0px;
+    }
+    .dietLiContainer{
+        height: 40%;
+        margin-bottom: 10px;
+    }
+    .submitButton{
+        margin-top: 0px;
+    }
+}
+

@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, ValidationError } = require('sequelize');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
@@ -20,11 +20,11 @@ module.exports = (sequelize) => {
     },
     healthScore:{
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: false,
     },
     steps:{
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     image:{
       type:DataTypes.STRING,
