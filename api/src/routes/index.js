@@ -10,7 +10,7 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 const getApiRecipes = async () => {
         
-        const apiUrl = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=fbef92387c4a415d856b7ac28a95df1a&number=100&addRecipeInformation=true')
+        const apiUrl = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=35508bb831984b18b2c4b6fc18868a1e&number=100&addRecipeInformation=true')
         const apiData = await apiUrl.data.results.map(recipe => {
         return {
             id: recipe.id,
@@ -41,7 +41,7 @@ const getAllRecipes = async () => {
 const getAllDiets = async () => {
     const dietsFiltered = [];
     const diets = [];
-    const dietApi = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=fbef92387c4a415d856b7ac28a95df1a&number=100&addRecipeInformation=true')
+    const dietApi = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=35508bb831984b18b2c4b6fc18868a1e&number=100&addRecipeInformation=true')
     const dietsArrays = dietApi.data.results.map(element => element.diets)
     for (let i = 0; i<dietsArrays.length;i++){
         for(let j=0; j<dietsArrays[i].length;j++){
@@ -87,10 +87,14 @@ router.get('/recipes/:id', async (req, res) => {
             res.status(200).send(recipe[0])
         }
         else if(!recipe.createdInDb) {
-            recipe = fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=fbef92387c4a415d856b7ac28a95df1a`)
-            .then(res => console.log(res.json()))
-            .then(data => console.log(data))
-            .catch(res.status(404).send(`No se encontró la receta con el id ${id}`))
+            try {
+                recipe = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=35508bb831984b18b2c4b6fc18868a1e`)
+                console.log(recipe.data)
+                res.status(200).send(recipe.data) 
+            }
+            catch (e) {
+                res.status(404).send(`No se encontró la receta con el id ${id}`)
+            }
         }
 
 })

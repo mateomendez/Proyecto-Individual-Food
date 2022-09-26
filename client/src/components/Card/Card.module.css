@@ -7,11 +7,12 @@
     align-items: center;
     align-content: stretch;
     background-color: white;
-    height: 220px;
-    width: 300px;
+    height: 100%;
+    width: 100%;
     border-radius: 10px;
     box-shadow: 2px 2px 2px rgba(0, 0, 0, .7);
-    margin-left: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
     margin-top: 10px;
 }
 
@@ -38,7 +39,7 @@
 .cardImage{ 
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    height: 170px;
-    width: 300px;
+    width: 100%;
+    height: 80%;
     margin-bottom: 6px;
 }   
