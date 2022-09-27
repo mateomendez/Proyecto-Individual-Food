@@ -7,7 +7,7 @@
     align-content: stretch;
     background-color: #fbe4c9;
     width: 100vw;
-    min-height: 930px;
+    min-height: 100vh;
 }
 
 .mainContainer{
